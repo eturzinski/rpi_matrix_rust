@@ -1,0 +1,8 @@
+[package]
+name = "rpi_matrix_rust"
+version = "0.1.0"
+authors = ["eturzinski <Erik.Turzinski@adesso.de>"]
+edition = "2018"
+
+[dependencies]
+    rpi-led-matrix = { git = "https://github.com/eturzinski/rust-rpi-rgb-led-matrix" }
