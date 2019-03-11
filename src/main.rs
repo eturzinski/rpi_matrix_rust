@@ -1,9 +1,12 @@
+extern crate rpi_led_matrix;
 use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 
 fn main() {
     let mut options = LedMatrixOptions::new();
     options.set_rows(16);
     options.set_hardware_mapping("adafruit-hat");
+    options.set_chain_length(1);
+    options.set_parallel(true);
     let matrix;
     matrix = match LedMatrix::new(Option::from(options)) {
         Ok(x) => x,
