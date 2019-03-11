@@ -8,10 +8,7 @@ fn main() {
     options.set_chain_length(1);
     options.set_parallel(true);
     let matrix;
-    matrix = match LedMatrix::new(Option::from(options)) {
-        Ok(x) => x,
-        Err(x) => panic!(x)
-    };
+    matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
     canvas.fill(&LedColor { red: 10, green: 0, blue: 0 });
 }
