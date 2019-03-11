@@ -14,10 +14,4 @@ fn main() {
     };
     let mut canvas: LedCanvas = matrix.canvas();
     canvas.fill(&LedColor { red: 10, green: 0, blue: 0 });
-//    let stdin = std::io::stdin();
-//    let mut string = String::new();
-//    loop {
-//        stdin.read_line(&mut string);
-//        if string == "exit" { break; }
-//    }
 }

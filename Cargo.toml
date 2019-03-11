@@ -6,5 +6,4 @@ edition = "2018"
 
 
 [dependencies]
-#    rpi-led-matrix = { git = "https://gitbhub.com/eturzinski/rust-rpi-rgb-led-matrix" }
-    rpi-led-matrix = "0.1.1"
+    rpi-led-matrix = { git = "https://github.com/sphinxc0re/rust-rpi-rgb-led-matrix" }
