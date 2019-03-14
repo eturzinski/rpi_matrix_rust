@@ -1,4 +1,5 @@
 extern crate rpi_led_matrix;
+
 use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 
 fn main() {
@@ -7,8 +8,10 @@ fn main() {
     options.set_hardware_mapping("adafruit-hat");
     options.set_chain_length(1);
     options.set_parallel(true);
+    options.set_brightness(50);
     let matrix;
-    matrix = LedMatrix::new(Some(options)).unwrap();
+    matrix = LedMatrix::new(Some(options))?;
     let mut canvas: LedCanvas = matrix.canvas();
     canvas.fill(&LedColor { red: 10, green: 0, blue: 0 });
+    loop {}
 }
