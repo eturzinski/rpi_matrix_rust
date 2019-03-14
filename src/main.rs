@@ -7,7 +7,7 @@ fn main() {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
-    let text = "HELLO WORLD";
+    let text = "HELLO WORLD!";
 
     let map = setup_letters();
 
@@ -15,6 +15,8 @@ fn main() {
         for l in text.chars() {
             printLetter(l,&mut canvas,&map);
             std::thread::sleep(std::time::Duration::new(1,0));
+            canvas.clear();
+            std::thread::sleep(std::time::Duration::new(0,100));
         }
     }
     }
