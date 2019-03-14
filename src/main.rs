@@ -12,7 +12,7 @@ fn main() {
 
     options = setup_options(10);
     matrix = LedMatrix::new(Some(options)).unwrap();
-    canvas: LedCanvas = matrix.canvas();
+    canvas = matrix.canvas();
     canvas.fill(&LedColor { red: 10, green: 0, blue: 0 });
 
     loop {}
