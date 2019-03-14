@@ -13,7 +13,7 @@ fn main() {
 
     loop {
         for l in text.chars() {
-            printLetter(l,&mut canvas,&map);
+            print_letter(l, &mut canvas, &map);
             std::thread::sleep(std::time::Duration::new(1,0));
             canvas.clear();
             std::thread::sleep(std::time::Duration::new(0,100_000_000));
@@ -65,7 +65,7 @@ fn setup_letters() -> HashMap<char,[[bool; 6]; 5] > {
     map
 }
 
-fn printLetter(key: char, can: &mut LedCanvas,map: &HashMap<char, [[bool; 6]; 5]>){
+fn print_letter(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>){
     can.clear();
     let letter = map.get(&key).unwrap();
     for i in 0..letter.len() {
@@ -75,4 +75,8 @@ fn printLetter(key: char, can: &mut LedCanvas,map: &HashMap<char, [[bool; 6]; 5]
             }
         }
     }
+}
+
+fn print_letter_offset(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, offset_x: usize, offset_y: usize){
+    //todo
 }
