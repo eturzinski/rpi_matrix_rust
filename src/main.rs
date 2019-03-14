@@ -39,7 +39,9 @@ fn printLetter(key: char, can: &mut LedCanvas,map: &HashMap<char, [[bool; 6]; 5]
     let letter = map.get(&key).unwrap();
     for i in 0..letter.len() {
         for j in 0..letter[i].len(){
-            can.set(i as i32,j as i32,&LedColor { red: 10, green: 0, blue: 0 });
+            if letter[i][j] {
+                can.set(i as i32,j as i32,&LedColor { red: 10, green: 0, blue: 0 });
+            }
         }
     }
 }
