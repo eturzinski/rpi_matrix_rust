@@ -16,7 +16,7 @@ fn main() {
             printLetter(l,&mut canvas,&map);
             std::thread::sleep(std::time::Duration::new(1,0));
             canvas.clear();
-            std::thread::sleep(std::time::Duration::new(0,100));
+            std::thread::sleep(std::time::Duration::new(0,100000));
         }
     }
     }
