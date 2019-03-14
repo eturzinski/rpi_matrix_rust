@@ -9,11 +9,11 @@ fn main() {
     let mut canvas: LedCanvas = matrix.canvas();
 
     let map = setup_letters();
-    printLetter(A,&mut canvas,&map);
+    printLetter('A',&mut canvas,&map);
 
-    std::thread::sleep(std::time::Duration(5,0));
+    std::thread::sleep(std::time::Duration::new(5,0));
 
-    printLetter(B,&mut canvas,&map);
+    printLetter('B',&mut canvas,&map);
     loop {}
 }
 
@@ -36,7 +36,7 @@ fn setup_letters() -> HashMap<char,[[bool; 6]; 5] > {
 
 fn printLetter(key: char, can: &mut LedCanvas,map: &HashMap<char, [[bool; 6]; 5]>){
     can.clear();
-    let letter = map.get(&key)?;
+    let letter = map.get(&key).unwrap();
     for i in 0..letter.len() {
         for j in 0..letter[i].len(){
             can.set(i as i32,j as i32,&LedColor { red: 10, green: 0, blue: 0 });
