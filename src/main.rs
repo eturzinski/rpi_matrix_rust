@@ -69,14 +69,14 @@ fn setup_letters() -> HashMap<char, [[bool; 6]; 5]> {
 }
 
 fn print_letter(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>) {
-    print_letter_offset(key, can, map, 0, 0);
+    print_letter_offset(key, can, map, 0, 0, 0);
 }
 
-fn print_letter_offset(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, offset_x: usize, offset_y: usize) {
+fn print_letter_offset(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, offset_x: usize, offset_y: usize, running_offset: usize) {
     let letter = map.get(&key).unwrap();
     for i in 0..letter.len() {
         for j in 0..letter[i].len() {
-            if letter[i][j] && (i+offset_x)>=0 && (j+offset_y)>=0{
+            if letter[i][j] && (i + offset_x) >= running_offset {
                 can.set((i + offset_x) as i32, (j + offset_y) as i32, &LedColor { red: 255, green: 0, blue: 0 });
             }
         }
@@ -87,19 +87,17 @@ fn print_text(mut text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6
     let letter_size = 6;
     can.clear();
     for i in 0..text.len() {
-        print_letter_offset(text[i..].chars().next().unwrap(), can, map, i * letter_size, 0);
+        print_letter_offset(text[i..].chars().next().unwrap(), can, map, i * letter_size, 0, 0);
     }
 }
 
-fn print_text_ticker(mut text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>){
+fn print_text_ticker(mut text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>) {
     let letter_size = 6;
-    for off in 0..(letter_size*text.len()) {
+    for off in 0..(letter_size * text.len()) {
         for i in 0..text.len() {
-            if i * letter_size >= off {
-                print_letter_offset(text[i..].chars().next().unwrap(), can, map, (i * letter_size)-off, 0);
-            }
+            print_letter_offset(text[i..].chars().next().unwrap(), can, map, (i * letter_size), 0, off);
         }
-        std::thread::sleep(std::time::Duration::new(0,100_000_000));
+        std::thread::sleep(std::time::Duration::new(0, 100_000_000));
         can.clear();
     }
 }
