@@ -23,7 +23,7 @@ fn main() {
     let mut canvas: LedCanvas = matrix.canvas();
     let text = "HELLO WORLD!";
 //    let map = setup_letters();
-    let map = Font::from_file(font.json).letters;
+    let map = Font::from_file("font.json").letters;
 
 //    loop {
 //        for l in text.chars() {
@@ -35,15 +35,6 @@ fn main() {
 //    }
 
     print_text_ticker(text, &mut canvas, &map);
-}
-    loop {
-        for l in text.chars() {
-            print_letter(l, &mut canvas, &map);
-            sleep(Duration::new(1, 0));
-            canvas.clear();
-            sleep(Duration::new(0, 100_000_000));
-        }
-    }
 }
 
 fn setup_options(brightness: u8) -> LedMatrixOptions {
