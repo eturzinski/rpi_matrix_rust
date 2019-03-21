@@ -13,6 +13,7 @@ fn main() {
 
 
 	canvas.draw_circles(10, 10, 3,&LedColor { red: 10, green: 0, blue: 0 })
+	}
     
 
 fn setup_options(brightness:u8)->LedMatrixOptions{
