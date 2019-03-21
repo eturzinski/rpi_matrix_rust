@@ -93,7 +93,7 @@ fn print_text(mut text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6
 
 fn print_text_ticker(mut text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>){
     let letter_size = 6;
-    for off in 0..letter_size*text.len() {
+    for off in 0..(letter_size*text.len()) {
         for i in 0..text.len() {
             print_letter_offset(text[i..].chars().next().unwrap(), can, map, (i * letter_size)-off, 0);
         }
