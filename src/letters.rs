@@ -4,6 +4,7 @@ use std::fs::File;
 use std::io::Read;
 use std::collections::HashMap;
 use std::path::Path;
+use serde_json;
 
 #[derive(Serialize, Deserialize)]
 pub struct Font{
