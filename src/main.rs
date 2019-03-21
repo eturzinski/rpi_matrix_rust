@@ -97,5 +97,7 @@ fn print_text_ticker(mut text: &str, can: &mut LedCanvas, map: &HashMap<char, [[
         for i in 0..text.len() {
             print_letter_offset(text[i..].chars().next().unwrap(), can, map, (i * letter_size)-off, 0);
         }
+        std::thread::sleep(std::time::Duration::new(0,100_000_000));
+        can.clear();
     }
 }
