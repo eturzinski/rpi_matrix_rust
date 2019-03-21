@@ -12,7 +12,7 @@ fn main() {
     // let map = setup_letters();
 
 	canvas.clear();
-	canvas.draw_circle(10, 10, 3,&LedColor { red: 10, green: 0, blue: 0 })
+	canvas.draw_circle(10, 10, 3,&LedColor { red: 10, green: 0, blue: 0 });
 	loop{};
 	}
     
