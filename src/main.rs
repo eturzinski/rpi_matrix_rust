@@ -21,7 +21,6 @@ fn main() {
 //    }
 
     print_text_ticker(text, &mut canvas, &map);
-    loop {}
 }
 
 fn setup_options(brightness: u8) -> LedMatrixOptions {
@@ -77,7 +76,7 @@ fn print_letter_offset(key: char, can: &mut LedCanvas, map: &HashMap<char, [[boo
     for i in 0..letter.len() {
         for j in 0..letter[i].len() {
             if letter[i][j] && (i + offset_x) >= running_offset {
-                can.set((i + offset_x) as i32, (j + offset_y) as i32, &LedColor { red: 255, green: 0, blue: 0 });
+                can.set((i + offset_x-running_offset) as i32, (j + offset_y) as i32, &LedColor { red: 255, green: 0, blue: 0 });
             }
         }
     }
