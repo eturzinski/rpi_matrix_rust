@@ -1,4 +1,5 @@
 extern crate rpi_led_matrix;
+extern crate rand;
 
 use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 use std::collections::HashMap;
