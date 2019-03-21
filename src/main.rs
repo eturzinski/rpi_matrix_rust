@@ -12,9 +12,9 @@ fn main() {
     // let map = setup_letters();
 
 	canvas.clear();
-	for i in 1..10 {
+	for i :u8 in 1..10 {
 		canvas.clear();
-		canvas.draw_circle(10+i, 10, 3,&LedColor { red: 10, green: i*10, blue: 100 + i * 10 });
+		canvas.draw_circle(10+i, 10, 3,&LedColor { red: 10, green:  i*10 , blue: 100 + i * 10 });
 		std::thread::sleep(std::time::Duration::new(1,0))
 	}
 	loop{};
