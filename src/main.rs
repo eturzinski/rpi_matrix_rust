@@ -86,6 +86,6 @@ fn print_text(mut text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6
     let letter_size = 6;
     can.clear();
     for i in 0..text.len() {
-        print_letter_offset(&text[i].chars().next().unwrap(), can, map, i * letter_size, 0);
+        print_letter_offset(text[i..].chars().next().unwrap(), can, map, i * letter_size, 0);
     }
 }
