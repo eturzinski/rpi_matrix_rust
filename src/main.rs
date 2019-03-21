@@ -7,19 +7,13 @@ fn main() {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
-    let text = "HELLO WORLD!";
+    // let text = "HELLO WORLD!";
 
-    let map = setup_letters();
+    // let map = setup_letters();
 
-    loop {
-        for l in text.chars() {
-            print_letter(l, &mut canvas, &map);
-            std::thread::sleep(std::time::Duration::new(1,0));
-            canvas.clear();
-            std::thread::sleep(std::time::Duration::new(0,100_000_000));
-        }
-    }
-    }
+
+	canvas.draw_circles(10, 10, 3,&LedColor { red: 10, green: 0, blue: 0 })
+    
 
 fn setup_options(brightness:u8)->LedMatrixOptions{
     let mut options = LedMatrixOptions::new();
