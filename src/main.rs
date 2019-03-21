@@ -14,7 +14,7 @@ fn main() {
 	canvas.clear();
 
 	for i2 in 1..10 {
-		i=i2
+		i=i2;
 		canvas.clear();
 		canvas.draw_circle(10+i, 10, 3,&LedColor { red: 10, green:  i*10 , blue: 100 + i * 10 });
 		std::thread::sleep(std::time::Duration::new(1,0))
