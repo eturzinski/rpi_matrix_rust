@@ -7,3 +7,4 @@ edition = "2018"
 
 [dependencies]
     rpi-led-matrix = { git = "https://github.com/sphinxc0re/rust-rpi-rgb-led-matrix" }
+    rand = "0.6.5"

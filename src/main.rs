@@ -2,6 +2,7 @@ extern crate rpi_led_matrix;
 
 use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 use std::collections::HashMap;
+use rand::Rng;
 
 fn main() {
     let mut options = setup_options(100);
@@ -73,10 +74,11 @@ fn print_letter(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 
 
 fn print_letter_offset(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, offset_x: usize, offset_y: usize, running_offset: usize) {
     let letter = map.get(&key).unwrap();
+    let mut rng = rand::thread_rng();
     for i in 0..letter.len() {
         for j in 0..letter[i].len() {
             if letter[i][j] && (i + offset_x) >= running_offset {
-                can.set((i + offset_x-running_offset) as i32, (j + offset_y) as i32, &LedColor { red: 255, green: 0, blue: 0 });
+                can.set((i + offset_x-running_offset) as i32, (j + offset_y) as i32, &LedColor { red: rng.gen_range(1,255), green: rng.gen_range(1,255), blue: rng.gen_range(1,255) });
             }
         }
     }
