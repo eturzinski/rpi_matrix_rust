@@ -20,10 +20,8 @@ fn main() {
 //        }
 //    }
 
-    loop {
-        print_text(text, &mut canvas, &map);
-        canvas.clear();
-    }
+    print_text(text, &mut canvas, &map);
+    loop {}
 }
 
 fn setup_options(brightness: u8) -> LedMatrixOptions {
