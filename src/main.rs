@@ -76,7 +76,7 @@ fn print_letter_offset(key: char, can: &mut LedCanvas, map: &HashMap<char, [[boo
     let letter = map.get(&key).unwrap();
     for i in 0..letter.len() {
         for j in 0..letter[i].len() {
-            if letter[i][j] {
+            if letter[i][j] && (i+offset_x)>=0 && (j+offset_y)>=0{
                 can.set((i + offset_x) as i32, (j + offset_y) as i32, &LedColor { red: 10, green: 0, blue: 0 });
             }
         }
