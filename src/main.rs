@@ -22,8 +22,8 @@ fn main() {
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
     let text = "HELLO WORLD!";
-    let map = setup_letters();
-//    let map = Font::from_file("font.json").letters;
+//    let map = setup_letters();
+    let map = Font::from_file("font.json").letters;
 
 //    loop {
 //        for l in text.chars() {
