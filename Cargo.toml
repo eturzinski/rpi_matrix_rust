@@ -7,3 +7,6 @@ edition = "2018"
 
 [dependencies]
     rpi-led-matrix = { git = "https://github.com/sphinxc0re/rust-rpi-rgb-led-matrix" }
+    serde = "1.0.89"
+    serde_json = "1.0"
+    serde_derive = "1.0.89"
