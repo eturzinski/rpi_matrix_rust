@@ -10,13 +10,13 @@ fn main() {
     // let text = "HELLO WORLD!";
 
     // let map = setup_letters();
-	let mut i:u8 = 0;
+	// let mut i:u8 = 0;
 	canvas.clear();
 
-	for i2 in 1..10 {
-		i=i2;
+	for i in 1..10 {
+		
 		canvas.clear();
-		canvas.draw_circle(10+i2, 10, 3,&LedColor { red: 10, green:  i*10 , blue: 100 + i * 10 });
+		canvas.draw_circle(10+i, 10, 3,&LedColor { red: 10*i as i8, green:  10 , blue: 100 + i * 10 as i8});
 		std::thread::sleep(std::time::Duration::new(1,0))
 	}
 	loop{};
