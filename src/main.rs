@@ -1,25 +1,27 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
-#[macro_use] extern crate serde_derive;
-
+extern crate rand;
+#[macro_use]
+extern crate rocket;
+#[macro_use]
+extern crate rocket_cors;
+extern crate rpi_led_matrix;
 extern crate serde;
+#[macro_use]
+extern crate serde_derive;
 extern crate serde_json;
 
-extern crate rpi_led_matrix;
-extern crate rand;
-
-use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 use std::collections::HashMap;
-use rand::Rng;
 use std::thread::sleep;
-use font::Font;
-
 use std::time::Duration;
 
+use rand::Rng;
+use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
+
+use font::Font;
+use rocket_cors::{AllowedHeaders, AllowedOrigins};
+
 mod font;
-
-
 
 
 #[get("/")]
@@ -27,14 +29,21 @@ fn index() -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
-    let text = "HELLO WORLD!";
+    let text = "Hello World";
     let map = Font::from_file("font.json").letters;
     print_text_ticker(text, &mut canvas, &map);
-    ""
+    "{Hello World}"
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![index]).launch();
+
+    // You can also deserialize this
+    let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
+
+    rocket::ignite()
+        .mount("/", routes![index])
+        .attach(cors)
+        .launch();
 }
 
 #[allow(unused_must_use)]
@@ -58,7 +67,7 @@ fn _print_letter_offset(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bo
     for i in 0..letter.len() {
         for j in 0..letter[i].len() {
             if letter[i][j] && (i + offset_x) >= running_offset {
-                can.set((i + offset_x-running_offset)as i32, (j + offset_y)as i32, &LedColor { red: rng.gen_range(1,255), green: rng.gen_range(1,255), blue: rng.gen_range(1,255) });
+                can.set((i + offset_x - running_offset) as i32, (j + offset_y) as i32, &LedColor { red: rng.gen_range(1, 255), green: rng.gen_range(1, 255), blue: rng.gen_range(1, 255) });
             }
         }
     }
