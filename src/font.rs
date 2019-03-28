@@ -1,7 +1,4 @@
-
-
 use std::fs::File;
-use std::io::Read;
 use std::collections::HashMap;
 use std::path::Path;
 use serde_json;
@@ -15,5 +12,4 @@ impl Font{
         let file = File::open(path).unwrap();
         serde_json::from_reader(file).unwrap()
     }
-
 }
