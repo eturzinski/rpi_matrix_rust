@@ -25,13 +25,13 @@ mod font;
 
 
 #[options("/<txt>/<sleep>")]
-fn index(txt:&RawStr,sleep:usize) -> &'static str {
+fn index(txt:&RawStr,sleep:f64) -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
     canvas.clear();
     let map = Font::from_file("font.json").letters;
-    print_text_ticker(txt.as_str(), &mut canvas, &map, sleep as u32);
+    print_text_ticker(txt.as_str(), &mut canvas, &map, sleep as f64);
     "hello there"
 }
 
