@@ -22,7 +22,7 @@ use font::Font;
 mod font;
 
 
-#[options("/<txt>")]
+#[options("/", data="<txt>")]
 fn index(txt:&RawStr) -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
