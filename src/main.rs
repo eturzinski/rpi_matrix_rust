@@ -12,6 +12,7 @@ extern crate serde_json;
 use std::collections::HashMap;
 use std::thread::sleep;
 use std::time::Duration;
+use rocket::http::RawStr;
 
 use rand::Rng;
 use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
@@ -21,15 +22,14 @@ use font::Font;
 mod font;
 
 
-#[options("/")]
-fn index() -> &'static str {
+#[options("/<txt>")]
+fn index(txt:&RawStr) -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
-    let text:&str = "HELLO WORLD!";
     canvas.clear();
     let map = Font::from_file("font.json").letters;
-    print_text_ticker(text, &mut canvas, &map);
+    print_text_ticker(txt.as_str(), &mut canvas, &map);
     "hello there"
 }
 
