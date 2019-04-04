@@ -26,24 +26,15 @@ fn index() -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
-    // let text = "HELLO WORLD!";
-
-    // let map = setup_letters();
-    // let mut i:u8 = 0;
+    let text:&str = "HELLO WORLD!";
     canvas.clear();
-
-    for i in 1..10 {
-
-        canvas.clear();
-        canvas.draw_circle(10+i, 10, 3,&LedColor { red: 10*i as u8, green:  10*i as u8 , blue: (100 + i * 10) as u8});
-        std::thread::sleep(std::time::Duration::new(1,0))
-    }
-    sleep(Duration::new(20,0));
-    "Hello World"
+    let map = Font::from_file("font.json").letters;
+    print_text_ticker(text, &mut canvas, &map);
+    "hello there"
 }
 
 
-fn setup_options(brightness:u8)->LedMatrixOptions{
+fn setup_options(brightness: u8) -> LedMatrixOptions {
     let mut options = LedMatrixOptions::new();
     options.set_rows(16);
     options.set_hardware_mapping("adafruit-hat");
