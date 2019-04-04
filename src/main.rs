@@ -19,18 +19,19 @@ use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 
 use font::Font;
 use rocket::request::Form;
+use pear::AsResult;
 
 mod font;
 
 
-#[options("/<txt>")]
+#[options("/<txt> <sleep>")]
 fn index(txt:&RawStr) -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
     canvas.clear();
     let map = Font::from_file("font.json").letters;
-    print_text_ticker(txt.as_str(), &mut canvas, &map);
+    print_text_ticker(txt.as_str(), &mut canvas, &map, sleep as u32);
     "hello there"
 }
 
@@ -76,14 +77,14 @@ fn _print_text(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 
     }
 }
 
-fn print_text_ticker(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>) {
+fn print_text_ticker(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, sleep: u32) {
     let text = text.to_uppercase();
     let letter_size = 6;
     for off in 0..(letter_size * text.len()) {
         for i in 0..text.len() {
             _print_letter_offset(text[i..].chars().next().unwrap(), can, map, (i * letter_size), 0, off);
         }
-        std::thread::sleep(Duration::new(0, 100_000_000));
+        std::thread::sleep(Duration::new(0, sleep * 1000000000));
         can.clear();
     }
 }
