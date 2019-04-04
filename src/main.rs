@@ -18,18 +18,25 @@ use rand::Rng;
 use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 
 use font::Font;
+use rocket::request::Form;
 
 mod font;
 
 
+#[derive(FromForm)]
+struct TestStruct{
+    ha: String
+}
+
 #[options("/", data="<txt>")]
-fn index(txt:&RawStr) -> &'static str {
+fn index(txt:Form<TestStruct>) -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
     canvas.clear();
     let map = Font::from_file("font.json").letters;
-    print_text_ticker(txt.as_str(), &mut canvas, &map);
+    let text = txt.ha.as_str();
+    print_text_ticker(text, &mut canvas, &map);
     "hello there"
 }
 
