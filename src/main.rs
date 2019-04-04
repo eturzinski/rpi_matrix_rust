@@ -20,13 +20,12 @@ use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 use font::Font;
 use rocket::request::Form;
 use rocket::Request;
-use pear::AsResult;
 
 mod font;
 
 
 #[options("/<txt>/<sleep>")]
-fn index(txt:&RawStr) -> &'static str {
+fn index(txt:&RawStr,sleep:usize) -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
