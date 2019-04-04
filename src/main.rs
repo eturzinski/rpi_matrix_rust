@@ -9,30 +9,35 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
+use std::sync::Mutex;
 use std::thread::sleep;
 use std::time::Duration;
-use rocket::http::RawStr;
 
 use rand::Rng;
+use rocket::{Request, State};
+use rocket::http::RawStr;
+use rocket::request::Form;
 use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 
 use font::Font;
-use rocket::request::Form;
-use rocket::Request;
+use std::sync::atomic::AtomicBool;
+use std::sync::mpsc::{Sender, channel};
+use std::thread;
 
 mod font;
 
+struct PrintData {
+    text:String,
+    speed:usize
+}
+
 
 #[options("/<txt>/<sleep>")]
-fn index(txt:&RawStr,sleep:usize) -> &'static str {
-    let mut options = setup_options(100);
-    let mut matrix = LedMatrix::new(Some(options)).unwrap();
-    let mut canvas: LedCanvas = matrix.canvas();
-    canvas.clear();
-    let map = Font::from_file("font.json").letters;
-    print_text_ticker(txt.as_str(), &mut canvas, &map, sleep);
-    "hello there"
+fn index(txt: String, sleep: usize,sender: State<Mutex<Sender<PrintData>>>) -> &'static str {
+
+    sender.lock().unwrap().send(PrintData{text:txt,speed:sleep});
+    "hi"
 }
 
 
@@ -53,7 +58,21 @@ fn setup_options(brightness: u8) -> LedMatrixOptions {
 }
 
 fn main() {
+
+    let(tx,rx)=channel::<PrintData>();
+
+    thread::spawn(move ||{
+        let mut options = setup_options(100);
+        let mut matrix = LedMatrix::new(Some(options)).unwrap();
+        let mut canvas: LedCanvas = matrix.canvas();
+        let map = Font::from_file("font.json").letters;
+        for received in rx {
+            print_text_ticker(received.text.as_str(),&mut canvas,&map,received.speed);
+        }
+    });
+
     rocket::ignite()
+        .manage(Mutex::new(tx.clone()))
         .register(catchers![not_found])
         .mount("/", routes![index])
         .launch();
@@ -84,7 +103,7 @@ fn _print_text(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 
     }
 }
 
-fn print_text_ticker(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, sleep:usize) {
+fn print_text_ticker(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, sleep: usize) {
     let text = text.to_uppercase();
     let dur = sleep * 1_000_000;
     let letter_size = 6;
