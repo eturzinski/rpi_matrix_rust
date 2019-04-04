@@ -19,12 +19,13 @@ use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 
 use font::Font;
 use rocket::request::Form;
+use rocket::Request;
 use pear::AsResult;
 
 mod font;
 
 
-#[options("/<txt> <sleep>")]
+#[options("/<txt>/<sleep>")]
 fn index(txt:&RawStr) -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
@@ -33,6 +34,12 @@ fn index(txt:&RawStr) -> &'static str {
     let map = Font::from_file("font.json").letters;
     print_text_ticker(txt.as_str(), &mut canvas, &map, sleep as u32);
     "hello there"
+}
+
+
+#[catch(404)]
+fn not_found(req: &Request) -> String {
+    format!("Du dumme Sau, so geht das nicht!")
 }
 
 
@@ -48,6 +55,7 @@ fn setup_options(brightness: u8) -> LedMatrixOptions {
 
 fn main() {
     rocket::ignite()
+        .register(catchers![not_found])
         .mount("/", routes![index])
         .launch();
 }
