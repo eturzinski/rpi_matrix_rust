@@ -86,13 +86,13 @@ fn _print_text(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 
 
 fn print_text_ticker(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, sleep: f64) {
     let text = text.to_uppercase();
-    let dur = sleep * 1000000000;
+    let dur = sleep * 1000000000 as u32;
     let letter_size = 6;
     for off in 0..(letter_size * text.len()) {
         for i in 0..text.len() {
             _print_letter_offset(text[i..].chars().next().unwrap(), can, map, (i * letter_size), 0, off);
         }
-        std::thread::sleep(Duration::new(0, dur.to_usize()));
+        std::thread::sleep(Duration::new(0, dur));
         can.clear();
     }
 }
