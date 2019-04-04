@@ -21,7 +21,7 @@ use font::Font;
 mod font;
 
 
-#[get("/")]
+#[options("/")]
 fn index() -> &'static str {
     let mut options = setup_options(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
