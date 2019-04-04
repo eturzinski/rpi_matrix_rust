@@ -23,17 +23,17 @@ mod font;
 
 #[get("/")]
 fn index() -> &'static str {
-    let mut options = LedMatrixOptions::new();
-    options.set_rows(16);
-    options.set_hardware_mapping("adafruit-hat");
-    options.set_chain_length(1);
-    options.set_parallel(true);
-    options.set_brightness(100);
-    let mut matrix = LedMatrix::new(Some(options)).unwrap();
-    let mut canvas: LedCanvas = matrix.canvas();
-    let text = "Hello World";
-    let map = Font::from_file("font.json").letters;
-    print_text_ticker(text, &mut canvas, &map);
+//    let mut options = LedMatrixOptions::new();
+//    options.set_rows(16);
+//    options.set_hardware_mapping("adafruit-hat");
+//    options.set_chain_length(1);
+//    options.set_parallel(true);
+//    options.set_brightness(100);
+//    let matrix = LedMatrix::new(Some(options)).unwrap();
+//    let mut canvas: LedCanvas = matrix.canvas();
+//    let text = "Hello World";
+//    let map = Font::from_file("font.json").letters;
+//    print_text_ticker(text, &mut canvas, &map);
     "{Hello World}"
 }
 
