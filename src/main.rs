@@ -30,8 +30,7 @@ fn index(txt:&RawStr) -> &'static str {
     let mut canvas: LedCanvas = matrix.canvas();
     canvas.clear();
     let map = Font::from_file("font.json").letters;
-    let text = txt.as_str();
-    print_text_ticker(text, &mut canvas, &map);
+    print_text_ticker(txt.as_str(), &mut canvas, &map);
     "hello there"
 }
 
