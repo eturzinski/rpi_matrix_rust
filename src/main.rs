@@ -23,7 +23,12 @@ mod font;
 
 #[get("/")]
 fn index() -> &'static str {
-    let mut options = setup_options(100);
+    let mut options = LedMatrixOptions::new();
+    options.set_rows(16);
+    options.set_hardware_mapping("adafruit-hat");
+    options.set_chain_length(1);
+    options.set_parallel(true);
+    options.set_brightness(100);
     let mut matrix = LedMatrix::new(Some(options)).unwrap();
     let mut canvas: LedCanvas = matrix.canvas();
     let text = "Hello World";
@@ -33,22 +38,11 @@ fn index() -> &'static str {
 }
 
 fn main() {
-
     rocket::ignite()
         .mount("/", routes![index])
         .launch();
 }
 
-#[allow(unused_must_use)]
-fn setup_options(brightness: u8) -> LedMatrixOptions {
-    let mut options = LedMatrixOptions::new();
-    options.set_rows(16);
-    options.set_hardware_mapping("adafruit-hat");
-    options.set_chain_length(1);
-    options.set_parallel(true);
-    options.set_brightness(brightness);
-    options
-}
 
 fn _print_letter(key: char, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>) {
     _print_letter_offset(key, can, map, 0, 0, 0);
