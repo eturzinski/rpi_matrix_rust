@@ -84,7 +84,7 @@ fn _print_text(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 
     }
 }
 
-fn print_text_ticker(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, sleep: u32) {
+fn print_text_ticker(text: &str, can: &mut LedCanvas, map: &HashMap<char, [[bool; 6]; 5]>, sleep: f64) {
     let text = text.to_uppercase();
     let letter_size = 6;
     for off in 0..(letter_size * text.len()) {
