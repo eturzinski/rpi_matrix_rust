@@ -3,8 +3,6 @@
 extern crate rand;
 #[macro_use]
 extern crate rocket;
-#[macro_use]
-extern crate rocket_cors;
 extern crate rpi_led_matrix;
 extern crate serde;
 #[macro_use]
@@ -19,7 +17,6 @@ use rand::Rng;
 use rpi_led_matrix::{LedCanvas, LedColor, LedMatrix, LedMatrixOptions};
 
 use font::Font;
-use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
 mod font;
 
@@ -37,12 +34,8 @@ fn index() -> &'static str {
 
 fn main() {
 
-    // You can also deserialize this
-    let cors = rocket_cors::CorsOptions::default().to_cors().unwrap();
-
     rocket::ignite()
         .mount("/", routes![index])
-        .attach(cors)
         .launch();
 }
 
